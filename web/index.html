@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Log Çıkarım Prototipi</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <h1>Log Çıkarım Prototipi</h1>
+      <p>Log akışı → log türleri → öncelik puanı → token bütçesi → LLM → olay → geri bildirim</p>
+    </div>
+    <div class="top-right">
+      <span id="mode-chip" class="chip"></span>
+      <span id="clock" class="muted mono"></span>
+      <button id="btn-settings" class="btn" type="button">Ayarlar</button>
+    </div>
+  </header>
+
+  <details class="intro" id="intro">
+    <summary>Bu ekran ne anlatıyor? <span class="muted">(1 dakikalık açıklama)</span></summary>
+    <ol>
+      <li><b>Sorun:</b> Saniyede binlerce log geliyor; bir LLM bunların hepsini okuyamaz.</li>
+      <li><b>Log türü (şablon):</b> Sistem birbirine benzeyen satırları tek bir türde toplar.
+        <code>User 123 logged in</code> ile <code>User 456 logged in</code> aynı türdür: <code>User &lt;*&gt; logged in</code>.
+        Değişen kısımlar (kimlik, sayı, IP) <code>&lt;*&gt;</code> ile gösterilir. Böylece yüz binlerce satır birkaç düzine türe iner.</li>
+      <li><b>Pencere:</b> Zaman 5-20 saniyelik dilimlere bölünür. Her pencerede her log türüne 0-100 arası bir
+        <b>öncelik puanı</b> verilir: yeni mi, normalden farklı mı, hata mı, geçmişte işe yaradı mı?</li>
+      <li><b>LLM:</b> Puanı yüksek türler, sabit bir token bütçesine sığdığı kadar LLM'e özet olarak gider. LLM "olay var mı?" diye karar verir.</li>
+      <li><b>Kapalı döngü:</b> Olay doğru çıkarsa o log türlerinin puanı ileride yükselir, yanlış alarmsa düşer.
+        Kaçırılan olay bildirilirse sistem daha dikkatli olur. Simülatörde bu geri bildirim otomatik verilir.</li>
+      <li><b>Dikkat seviyesi:</b> Bir şey ters gidince sistem pencereleri kısaltır ve LLM'e daha çok bilgi gönderir; ortalık sakinleşince yavaşça normale döner.</li>
+    </ol>
+  </details>
+
+  <div id="banners" class="banners" aria-live="polite"></div>
+
+  <section class="kpis" id="kpis" aria-label="Özet göstergeler"></section>
+
+  <main class="grid">
+    <div class="col-main">
+      <section class="card">
+        <div class="card-head">
+          <h2>Dikkat seviyesi</h2>
+          <span class="hint">LLM'in ne kadar çalışacağını belirler. Bir şey ters gidince hızla yükselir, sonra yavaş yavaş iner.</span>
+        </div>
+        <div id="attention-body"></div>
+        <div id="attention-chart" class="chart" aria-label="Dikkat seviyesi zaman grafiği"></div>
+        <p class="caption"><span class="dot dot-series"></span> LLM'e özet gönderilen pencereler · bir noktaya tıklayınca o pencerede gidenler aşağıda açılır</p>
+        <div id="level-table"></div>
+      </section>
+
+      <section class="card">
+        <div class="card-head row">
+          <div>
+            <h2>Olaylar</h2>
+            <span class="hint">LLM'in bulduğu olaylar. Gerçek loglarla çalışırken her olayı "Doğru olay" ya da "Yanlış alarm" diye işaretleyin.</span>
+          </div>
+          <button id="btn-missed" class="btn small" type="button" title="LLM'in yakalamadığı bir olay olduysa bildirin">Kaçırılan olay bildir</button>
+        </div>
+        <div id="incidents"><p class="empty">Henüz olay yok.</p></div>
+      </section>
+    </div>
+
+    <div class="col-side">
+      <section class="card">
+        <div class="card-head">
+          <h2>Simülatör</h2>
+          <span class="hint">mlog tarzı bir e-ticaret uygulaması gibi log üretir. Bir senaryo tetikleyip sistemin yakalayıp yakalamadığını izleyin.</span>
+        </div>
+        <div class="sim-controls">
+          <button id="sim-toggle" class="btn" type="button">Duraklat</button>
+          <label class="rate">
+            <span>Hız</span>
+            <input type="range" id="sim-rate" min="200" max="20000" step="100" value="2000">
+            <output id="sim-rate-val" class="mono">2.000</output><span class="muted">log/sn</span>
+          </label>
+        </div>
+        <p class="subhead">Senaryo tetikle</p>
+        <div class="scenarios" id="scenarios"></div>
+        <p class="subhead">Senaryo sonuçları</p>
+        <div id="sim-results"><p class="empty small">Henüz senaryo yok. Yukarıdan birini tetikleyin.</p></div>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>Sistem neye önem veriyor?</h2>
+          <span class="hint">Her log türünün öncelik puanı bu 6 ölçütün ağırlıklı toplamıdır. Geri bildirim geldikçe işe yarayan ölçüt güçlenir, yanıltan zayıflar.</span>
+        </div>
+        <div id="weights"></div>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>Kendi loglarını bağla</h2>
+        </div>
+        <div id="connect" class="connect"></div>
+      </section>
+    </div>
+  </main>
+
+  <section class="card full" id="windows-card">
+    <div class="card-head row">
+      <div>
+        <h2>Pencereler: LLM'e ne gitti?</h2>
+        <span class="hint">Soldan bir pencere seçin; o pencerede hangi log türlerinin LLM'e gittiğini ve nedenini görün.
+          Bir satıra tıklayınca o log türünün açıklaması açılır.</span>
+      </div>
+      <label class="radio small"><input type="checkbox" id="only-called"> Sadece LLM'e gidenler</label>
+    </div>
+    <div class="win-layout">
+      <div class="win-list" id="win-list"></div>
+      <div class="win-detail" id="win-detail"><p class="empty">İlk pencere kapanınca burada görünecek.</p></div>
+    </div>
+  </section>
+
+  <dialog id="settings">
+    <form method="dialog" id="settings-form">
+      <h2>Ayarlar</h2>
+      <fieldset>
+        <legend>LLM analisti</legend>
+        <label class="radio"><input type="radio" name="mod" value="simulasyon"> Simülasyon analisti <span class="muted">(anahtar gerekmez, ücretsiz)</span></label>
+        <label class="radio"><input type="radio" name="mod" value="claude" id="mod-claude"> Claude <span class="muted">(Anthropic API)</span></label>
+        <p id="claude-status" class="note"></p>
+        <label class="field">API anahtarı
+          <input type="password" id="api-key" placeholder="sk-ant-..." autocomplete="off" spellcheck="false">
+        </label>
+        <p class="note">Anahtar sadece bu bilgisayarda çalışan sunucunun belleğinde tutulur, diske yazılmaz.
+          Alternatif olarak <code>ANTHROPIC_API_KEY</code> ortam değişkenini ayarlayabilirsiniz.</p>
+      </fieldset>
+      <fieldset>
+        <legend>Geri bildirim ve bütçe</legend>
+        <label class="radio"><input type="checkbox" id="auto-fb"> Otomatik geri bildirim
+          <span class="muted">(simülatör hangi olayın gerçek olduğunu bilir)</span></label>
+        <label class="field">Günlük token bütçesi
+          <input type="number" id="budget" min="1000" step="1000">
+        </label>
+      </fieldset>
+      <div class="dialog-actions">
+        <button type="button" id="btn-reset" class="btn danger">Her şeyi sıfırla</button>
+        <span class="spacer"></span>
+        <button value="cancel" class="btn">Kapat</button>
+        <button type="button" id="btn-save" class="btn primary">Kaydet</button>
+      </div>
+      <p id="settings-msg" class="note" role="status"></p>
+    </form>
+  </dialog>
+
+  <div id="tooltip" class="tooltip" hidden></div>
+  <script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+{
+  "port": 8080,
+  "isinma_pencere": 3,
+  "isinma_pencere_sn": 10,
+  "seviyeler": {
+    "sakin": {
+      "pencere_sn": 20,
+      "token_butcesi": 2500,
+      "ornek_sayisi": 1,
+      "model": "claude-haiku-5-5",
+      "effort": "low"
+    },
+    "dikkat": {
+      "pencere_sn": 10,
+      "token_butcesi": 6000,
+      "ornek_sayisi": 2,
+      "model": "claude-haiku-5-5",
+      "effort": "low"
+    },
+    "alarm": {
+      "pencere_sn": 5,
+      "token_butcesi": 12000,
+      "ornek_sayisi": 4,
+      "model": "claude-opus-5-5",
+      "effort": "medium"
+    }
+  },
+  "kesif_orani": 0.15,
+  "oncelik_min_skor": 0.2,
+  "sakin_cagri_esigi": 0.7,
+  "saglik_kontrolu_her": 10,
+  "kayip_min_beklenen": 3,
+  "gunluk_token_butcesi": 2000000,
+  "beta_unutma": 0.995,
+  "oncelik_modeli": {
+    "baslangic_agirliklari": {
+      "yenilik": 2.0,
+      "kanit": 1.0,
+      "birliktelik": 1.5,
+      "nadirlik": 1.0,
+      "sapma": 2.5,
+      "seviye": 2.0
+    },
+    "bias": -4.0,
+    "ogrenme_hizi": 0.1,
+    "l2": 0.01
+  },
+  "dikkat_kontrol": {
+    "taban": 0.1,
+    "birakma": 0.15
+  },
+  "drain": {
+    "benzerlik_esigi": 0.6,
+    "derinlik": 3
+  },
+  "simulator": {
+    "acik": true,
+    "hiz": 2000
+  }
+}
