@@ -7,6 +7,12 @@ reddedildikçe sistem neye dikkat etmesi gerektiğini öğrenir.
 
 Sistem **sıfırdan** başlar: geçmiş log yoktur, ilk pencerelerde "normal"in ne olduğunu kendisi öğrenir.
 
+## Poster
+
+Projeyi tek sayfada anlatan poster: [PNG](docs/poster/poster.png) · [PDF (baskı için)](docs/poster/poster.pdf) · [HTML](docs/poster/poster.html)
+
+<img src="docs/poster/poster.png" alt="Log Çıkarım Prototipi posteri" width="420">
+
 ## Kurulum (Windows)
 
 1. Python 3.10 veya üzeri kurulu olsun ([python.org](https://www.python.org/downloads/)).
