@@ -8,151 +8,149 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
 <style>
 body{margin:0;background:#F5F6F8}
-@page{size:1200px 2100px;margin:0}
-@media print{html,body{width:1200px;height:2100px;overflow:hidden}body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+@page{size:1200px 2250px;margin:0}
+@media print{html,body{width:1200px;height:2250px;overflow:hidden}body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 a{color:#1D4ED8}a:hover{color:#1E3A8A}
 </style>
 </head>
 <body>
-<div style="width: 1200px; height: 2100px; box-sizing: border-box; padding: 72px 72px 56px; background: #F5F6F8; color: #0F172A; font-family: Inter, system-ui, sans-serif; display: flex; flex-direction: column; gap: 40px">
+<div style="width: 1200px; height: 2250px; box-sizing: border-box; padding: 72px 72px 56px; background: #F5F6F8; color: #0F172A; font-family: Inter, system-ui, sans-serif; display: flex; flex-direction: column; gap: 40px">
 
   <header style="display: flex; flex-direction: column; gap: 18px">
     <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; font-weight: 600; letter-spacing: 0.08em; color: #475569">
       <span style="width: 10px; height: 10px; border-radius: 50%; background: #2563EB"></span>
-      <span>PROTOTİP · YÜKSEK HACİMLİ LOG ÇIKARIMI</span>
+      <span>PROTOTİP · YAPAY ZEKÂ İLE LOG İZLEME</span>
     </div>
-    <h1 style="margin: 0; font-family: 'Space Grotesk', Inter, sans-serif; font-size: 84px; line-height: 0.98; font-weight: 700; letter-spacing: -0.02em">Saniyede binlerce log.<br>Tek bir LLM.</h1>
-    <p style="margin: 0; max-width: 900px; font-size: 24px; line-height: 1.4; color: #334155">LLM'i boğmadan olay tespiti: loglar türlerine indirgenir, en önemlileri sabit bir token bütçesiyle LLM'e gider ve sistem her geri bildirimle neye dikkat etmesi gerektiğini öğrenir.</p>
+    <h1 style="margin: 0; font-family: 'Space Grotesk', Inter, sans-serif; font-size: 84px; line-height: 0.98; font-weight: 700; letter-spacing: -0.02em">Saniyede binlerce log.<br>Tek bir yapay zekâ.</h1>
+    <p style="margin: 0; max-width: 960px; font-size: 24px; line-height: 1.4; color: #334155">Sistemler her saniye binlerce kayıt (log) üretir. Bir yapay zekâ dil modeli (LLM) bunların hepsini okuyamaz. Bu prototip, sorunları kaçırmadan yalnızca önemli olanları modele okutur ve her geri bildirimle neyin önemli olduğunu daha iyi öğrenir.</p>
   </header>
 
   <section style="display: flex; flex-direction: column; gap: 16px">
     <h2 style="margin: 0; font-family: 'Space Grotesk', Inter, sans-serif; font-size: 28px; font-weight: 600">Sorun</h2>
     <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px">
       <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 8px">
-        <div style="font-family: 'Space Grotesk', Inter, sans-serif; font-size: 40px; font-weight: 700; color: #C2410C">600 bin</div>
-        <div style="font-size: 18px; line-height: 1.4; color: #334155">satır/dakika: saniyede 10.000 log gelen bir sistemde. Bunu hiçbir LLM tek tek okuyamaz.</div>
+        <div style="font-family: 'Space Grotesk', Inter, sans-serif; font-size: 40px; font-weight: 700; color: #C2410C">600 bin satır</div>
+        <div style="font-size: 18px; line-height: 1.4; color: #334155">Saniyede 10.000 log gelen bir sistemde her dakika bu kadar satır birikir. Hiçbir model bunları tek tek okuyamaz.</div>
       </div>
       <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 8px">
-        <div style="font-family: 'Space Grotesk', Inter, sans-serif; font-size: 40px; font-weight: 700; color: #C2410C">~1,5 milyon</div>
-        <div style="font-size: 18px; line-height: 1.4; color: #334155">token/dakika: logların sadece %5'ini göndermek bile (log başına ~50 token varsayımıyla).</div>
+        <div style="font-family: 'Space Grotesk', Inter, sans-serif; font-size: 40px; font-weight: 700; color: #C2410C">Çok pahalı</div>
+        <div style="font-size: 18px; line-height: 1.4; color: #334155">Logların sadece %5'ini rastgele seçip modele okutmak bile dakikada yaklaşık 1,5 milyon kelime parçası (token) eder.</div>
       </div>
       <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 8px">
         <div style="font-family: 'Space Grotesk', Inter, sans-serif; font-size: 40px; font-weight: 700; color: #C2410C">Kör nokta</div>
-        <div style="font-size: 18px; line-height: 1.4; color: #334155">Örnekleme "bir hata" ile "dakikada 5.000 hata"yı ayırt edemez; hiç gelmeyen logu da göremez.</div>
+        <div style="font-size: 18px; line-height: 1.4; color: #334155">Rastgele seçince "1 hata" ile "dakikada 5.000 hata" aynı görünür. Gelmesi gerekip hiç gelmeyen log ise hiç fark edilmez.</div>
       </div>
     </div>
   </section>
 
   <section style="display: flex; flex-direction: column; gap: 16px">
-    <h2 style="margin: 0; font-family: 'Space Grotesk', Inter, sans-serif; font-size: 28px; font-weight: 600">Çözüm: altı adımlık akış</h2>
+    <h2 style="margin: 0; font-family: 'Space Grotesk', Inter, sans-serif; font-size: 28px; font-weight: 600">Nasıl çalışıyor? Altı adım</h2>
     <div style="display: flex; align-items: stretch; gap: 8px">
       <div style="flex: 1; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 18px 16px; display: flex; flex-direction: column; gap: 6px">
         <div style="font-size: 14px; font-weight: 700; color: #2563EB">1</div>
-        <div style="font-size: 18px; font-weight: 600">Log akışı</div>
-        <div style="font-size: 14.5px; line-height: 1.4; color: #475569">mlog, dosya takibi ya da HTTP</div>
+        <div style="font-size: 18px; font-weight: 600">Loglar gelir</div>
+        <div style="font-size: 14.5px; line-height: 1.4; color: #475569">Uygulamaların ürettiği tüm kayıtlar sisteme akar.</div>
       </div>
       <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="align-self: center; flex: none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#94A3B8" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
       <div style="flex: 1; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 18px 16px; display: flex; flex-direction: column; gap: 6px">
         <div style="font-size: 14px; font-weight: 700; color: #2563EB">2</div>
-        <div style="font-size: 18px; font-weight: 600">Log türleri</div>
-        <div style="font-size: 14.5px; line-height: 1.4; color: #475569">Benzer satırlar tek türde: <span style="font-family: 'JetBrains Mono', monospace; font-size: 13px">User &lt;*&gt; logged in</span></div>
+        <div style="font-size: 18px; font-weight: 600">Türlere ayrılır</div>
+        <div style="font-size: 14.5px; line-height: 1.4; color: #475569">Benzer satırlar tek kalıpta toplanır: "Kullanıcı 123 girdi" → "Kullanıcı * girdi".</div>
       </div>
       <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="align-self: center; flex: none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#94A3B8" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
       <div style="flex: 1; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 18px 16px; display: flex; flex-direction: column; gap: 6px">
         <div style="font-size: 14px; font-weight: 700; color: #2563EB">3</div>
-        <div style="font-size: 18px; font-weight: 600">Pencere özeti</div>
-        <div style="font-size: 14.5px; line-height: 1.4; color: #475569">5–20 sn: adet, beklenen, yeni, kaybolan</div>
+        <div style="font-size: 18px; font-weight: 600">Sayılır</div>
+        <div style="font-size: 14.5px; line-height: 1.4; color: #475569">5–20 saniyede bir: hangi türden kaç tane geldi?</div>
       </div>
       <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="align-self: center; flex: none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#94A3B8" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
       <div style="flex: 1; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 18px 16px; display: flex; flex-direction: column; gap: 6px">
         <div style="font-size: 14px; font-weight: 700; color: #2563EB">4</div>
-        <div style="font-size: 18px; font-weight: 600">Öncelik puanı</div>
-        <div style="font-size: 14.5px; line-height: 1.4; color: #475569">Her türe 0–100 puan, 6 ölçütle</div>
+        <div style="font-size: 18px; font-weight: 600">Puanlanır</div>
+        <div style="font-size: 14.5px; line-height: 1.4; color: #475569">Her türe 0–100 arası bir önem puanı verilir.</div>
       </div>
       <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="align-self: center; flex: none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#94A3B8" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
       <div style="flex: 1; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 18px 16px; display: flex; flex-direction: column; gap: 6px">
         <div style="font-size: 14px; font-weight: 700; color: #2563EB">5</div>
-        <div style="font-size: 18px; font-weight: 600">Token bütçesi</div>
-        <div style="font-size: 14.5px; line-height: 1.4; color: #475569">En yüksek puanlılar + %15 keşif</div>
+        <div style="font-size: 18px; font-weight: 600">Seçilir</div>
+        <div style="font-size: 14.5px; line-height: 1.4; color: #475569">En önemliler ve gözden kaçmasın diye birkaç rastgele tür.</div>
       </div>
       <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="align-self: center; flex: none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#94A3B8" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
       <div style="flex: 1; background: #0F172A; color: #F8FAFC; border-radius: 14px; padding: 18px 16px; display: flex; flex-direction: column; gap: 6px">
         <div style="font-size: 14px; font-weight: 700; color: #93C5FD">6</div>
-        <div style="font-size: 18px; font-weight: 600">LLM → olay</div>
-        <div style="font-size: 14.5px; line-height: 1.4; color: #CBD5E1">Olay + dayandığı log türleri</div>
+        <div style="font-size: 18px; font-weight: 600">Yapay zekâ karar verir</div>
+        <div style="font-size: 14.5px; line-height: 1.4; color: #CBD5E1">Sorun varsa söyler ve hangi loglara dayandığını gösterir.</div>
       </div>
     </div>
     <div style="display: flex; align-items: center; gap: 16px; background: #FFFFFF; border: 1px dashed #2563EB; border-radius: 14px; padding: 16px 22px">
       <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><path d="M20 12a8 8 0 1 1-2.34-5.66M20 4v5h-5" stroke="#2563EB" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-      <div style="font-size: 18px; line-height: 1.45"><b>Kapalı döngü:</b> doğrulanan olayın log türlerinin puanı ileride <b>yükselir</b>, yanlış alarmınki <b>düşer</b>; kaçırılan olay bildirilirse sistemin <b>dikkati artar</b>. Simülatörde geri bildirim otomatik, gerçek loglarda tek tıkla verilir.</div>
+      <div style="font-size: 18px; line-height: 1.45"><b>Kendi kendine öğrenir:</b> biri "bu gerçek bir sorundu" derse, o sorunu gösteren log türleri bir dahaki sefere <b>daha önemli</b> sayılır. "Yanlış alarm" derse <b>daha az önemli</b> sayılır. Bir sorun gözden kaçtıysa sistem <b>daha dikkatli</b> olur.</div>
     </div>
   </section>
 
   <section style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px">
     <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; padding: 26px; display: flex; flex-direction: column; gap: 14px">
-      <h2 style="margin: 0; font-family: 'Space Grotesk', Inter, sans-serif; font-size: 26px; font-weight: 600">Öncelik puanı neye bakar?</h2>
+      <h2 style="margin: 0; font-family: 'Space Grotesk', Inter, sans-serif; font-size: 26px; font-weight: 600">Bir log neden önemli sayılır?</h2>
       <div style="display: flex; flex-direction: column; gap: 10px; font-size: 17px; line-height: 1.4">
-        <div><b>Ne kadar yeni:</b> <span style="color: #475569">ilk kez mi görülüyor?</span></div>
-        <div><b>Normalden ne kadar farklı:</b> <span style="color: #475569">beklenenden çok fazla ya da hiç gelmedi mi?</span></div>
-        <div><b>Hata seviyesi:</b> <span style="color: #475569">INFO mu, ERROR mı?</span></div>
-        <div><b>Ne kadar nadir:</b> <span style="color: #475569">tüm logların %90'ı olan tür az bilgi taşır.</span></div>
-        <div><b>Geçmişte işe yaradı mı:</b> <span style="color: #475569">daha önce doğru olayın kanıtı oldu mu?</span></div>
-        <div><b>Olaylarla birlikte görülüyor mu:</b> <span style="color: #475569">geçmiş olay anlarında var mıydı?</span></div>
+        <div><b>Yeni mi?</b> <span style="color: #475569">Daha önce hiç görülmedi mi?</span></div>
+        <div><b>Normalden farklı mı?</b> <span style="color: #475569">Çok mu fazla geldi, yoksa hiç mi gelmedi?</span></div>
+        <div><b>Hata mı?</b> <span style="color: #475569">Sıradan bir bilgi mi, yoksa bir hata mesajı mı?</span></div>
+        <div><b>Nadir mi?</b> <span style="color: #475569">Logların %90'ını oluşturan bir tür az şey anlatır.</span></div>
+        <div><b>Daha önce işe yaradı mı?</b> <span style="color: #475569">Geçmişte gerçek bir sorunu göstermiş miydi?</span></div>
+        <div><b>Sorunlarla birlikte mi görülüyor?</b> <span style="color: #475569">Geçmişteki sorun anlarında da var mıydı?</span></div>
       </div>
-      <p style="margin: 4px 0 0; font-size: 15px; line-height: 1.45; color: #475569">Ağırlıklar elle başlar, her geri bildirimle kendiliğinden ayarlanır; bütçenin bir kısmı düşük puanlılara da ayrılır ki gözden bir şey kaçmasın.</p>
+      <p style="margin: 4px 0 0; font-size: 15px; line-height: 1.45; color: #475569">Bu altı sorunun hangisinin ne kadar önemli olduğu başta elle belirlenir, geri bildirim geldikçe kendiliğinden ayarlanır.</p>
     </div>
     <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; padding: 26px; display: flex; flex-direction: column; gap: 14px">
-      <h2 style="margin: 0; font-family: 'Space Grotesk', Inter, sans-serif; font-size: 26px; font-weight: 600">Dikkat seviyesi</h2>
-      <p style="margin: 0; font-size: 16px; line-height: 1.45; color: #475569">LLM'in ne kadar çalışacağını belirleyen tek düğme. Bir şey ters gidince hızla yükselir, sonra yavaş iner.</p>
+      <h2 style="margin: 0; font-family: 'Space Grotesk', Inter, sans-serif; font-size: 26px; font-weight: 600">Ne kadar dikkatli bakıyor?</h2>
+      <p style="margin: 0; font-size: 16px; line-height: 1.45; color: #475569">Sistem dikkatini kendisi ayarlar: bir şey ters gidince hemen yükseltir, ortalık sakinleşince yavaş yavaş indirir.</p>
       <div style="display: flex; flex-direction: column; gap: 10px">
         <div style="display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 12px; align-items: start; padding: 12px 14px; border-radius: 12px; background: #F8FAFC">
           <div style="display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 17px"><span style="width: 12px; height: 12px; border-radius: 50%; background: #16A34A"></span>Sakin</div>
-          <div style="font-size: 15.5px; line-height: 1.4; color: #334155">20 sn pencere · 2.500 token · LLM yalnızca dikkat çeken bir şey varsa · küçük model</div>
+          <div style="font-size: 15.5px; line-height: 1.4; color: #334155">20 saniyede bir bakar. Yapay zekâya yalnızca dikkat çeken bir şey olursa sorar; hızlı ve ucuz model.</div>
         </div>
         <div style="display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 12px; align-items: start; padding: 12px 14px; border-radius: 12px; background: #F8FAFC">
           <div style="display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 17px"><span style="width: 12px; height: 12px; border-radius: 50%; background: #D97706"></span>Dikkat</div>
-          <div style="font-size: 15.5px; line-height: 1.4; color: #334155">10 sn pencere · 6.000 token · her pencerede LLM · küçük model</div>
+          <div style="font-size: 15.5px; line-height: 1.4; color: #334155">10 saniyede bir bakar ve her seferinde yapay zekâya sorar; hızlı ve ucuz model.</div>
         </div>
         <div style="display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 12px; align-items: start; padding: 12px 14px; border-radius: 12px; background: #F8FAFC">
           <div style="display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 17px"><span style="width: 12px; height: 12px; border-radius: 50%; background: #DC2626"></span>Alarm</div>
-          <div style="font-size: 15.5px; line-height: 1.4; color: #334155">5 sn pencere · 12.000 token · tür başına 4 ham örnek · güçlü model</div>
+          <div style="font-size: 15.5px; line-height: 1.4; color: #334155">5 saniyede bir bakar, yapay zekâya daha çok örnek log gönderir; en güçlü model.</div>
         </div>
       </div>
     </div>
   </section>
 
   <section style="display: flex; flex-direction: column; gap: 16px">
-    <h2 style="margin: 0; font-family: 'Space Grotesk', Inter, sans-serif; font-size: 28px; font-weight: 600">Simülasyon sonuçları</h2>
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <h2 style="margin: 0; font-family: 'Space Grotesk', Inter, sans-serif; font-size: 28px; font-weight: 600">Denemede ne oldu?</h2>
+      <p style="margin: 0; font-size: 17px; line-height: 1.4; color: #475569">Gerçeğe benzer loglar üreten bir simülatörde altı farklı durum canlandırıldı.</p>
+    </div>
     <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px">
       <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 6px">
         <div style="font-family: 'Space Grotesk', Inter, sans-serif; font-size: 44px; font-weight: 700; color: #2563EB">5 / 5</div>
-        <div style="font-size: 16px; line-height: 1.4; color: #334155">gerçek olay yakalandı: veritabanı, deploy hatası, heartbeat kesilmesi, kilit çakışması, kaba kuvvet</div>
+        <div style="font-size: 16px; line-height: 1.4; color: #334155">gerçek sorunun hepsi saniyeler içinde yakalandı: veritabanı kesintisi, hatalı yeni sürüm, duran servis, kilitlenme, şifre deneme saldırısı.</div>
       </div>
       <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 6px">
         <div style="font-family: 'Space Grotesk', Inter, sans-serif; font-size: 44px; font-weight: 700; color: #2563EB">3. sefer</div>
-        <div style="font-size: 16px; line-height: 1.4; color: #334155">zararsız kampanya trafiği artık alarm sayılmadı; ilk iki seferde yanlış alarmdı. Sistem öğrendi.</div>
+        <div style="font-size: 16px; line-height: 1.4; color: #334155">tekrarlanan zararsız kampanya trafiğini artık alarm saymadı. İlk ikisinde yanlış alarm vermişti; geri bildirimle öğrendi.</div>
       </div>
       <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 6px">
         <div style="font-family: 'Space Grotesk', Inter, sans-serif; font-size: 44px; font-weight: 700; color: #2563EB">34 tür</div>
-        <div style="font-size: 16px; line-height: 1.4; color: #334155">5 saniyelik bir pencerede 10.345 satır, 34 log türüne indi; LLM'e ~2.100 token gitti.</div>
+        <div style="font-size: 16px; line-height: 1.4; color: #334155">5 saniyede gelen 10.345 log satırı 34 türe indi. Yapay zekâya hepsi değil, bunların kısa bir özeti gitti.</div>
       </div>
       <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 6px">
         <div style="font-family: 'Space Grotesk', Inter, sans-serif; font-size: 44px; font-weight: 700; color: #2563EB">~240 bin</div>
-        <div style="font-size: 16px; line-height: 1.4; color: #334155">satır/sn: log türü çıkarımı tek işlemci çekirdeğinde, ek kütüphane olmadan.</div>
+        <div style="font-size: 16px; line-height: 1.4; color: #334155">log satırı saniyede türlerine ayrılabiliyor; sıradan bir bilgisayarın tek işlemci çekirdeğinde.</div>
       </div>
     </div>
-    <p style="margin: 0; font-size: 14.5px; line-height: 1.45; color: #475569">Sonuçlar simülatörle ve kural tabanlı analistle, kısaltılmış pencerelerle alındı. Gerçek loglar ve Claude ile henüz ölçülmedi.</p>
+    <p style="margin: 0; font-size: 14.5px; line-height: 1.45; color: #475569">Not: Bu sonuçlar simülatörle ve gerçek yapay zekâ yerine onu taklit eden kurallarla alındı. Gerçek loglarla ve gerçek modelle henüz ölçülmedi.</p>
   </section>
 
-  <footer style="margin-top: auto; display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; border-top: 2px solid #0F172A; padding-top: 22px">
-    <div style="display: flex; flex-direction: column; gap: 6px">
-      <div style="font-size: 15px; font-weight: 600; letter-spacing: 0.06em; color: #475569">DENEMEK İÇİN</div>
-      <div style="font-size: 20px; line-height: 1.4"><span style="font-family: 'JetBrains Mono', monospace; font-size: 18px; background: #E2E8F0; padding: 2px 8px; border-radius: 6px">baslat.bat</span> → tarayıcı açılır → ~30 sn ısınma → senaryo tetikle</div>
-    </div>
-    <div style="text-align: right; font-size: 16px; line-height: 1.45; color: #334155">
-      <div style="font-family: 'JetBrains Mono', monospace; font-size: 16px">github.com/Proaiml/high-volume-log-inference</div>
-      <div style="color: #475569">özel repo · Python + tarayıcı arayüzü</div>
-    </div>
+  <footer style="margin-top: auto; display: flex; flex-direction: column; gap: 10px; border-top: 2px solid #0F172A; padding-top: 22px">
+    <div style="font-size: 15px; font-weight: 600; letter-spacing: 0.06em; color: #475569">DENEMEK İÇİN</div>
+    <div style="font-size: 20px; line-height: 1.4"><span style="font-family: 'JetBrains Mono', monospace; font-size: 18px; background: #E2E8F0; padding: 2px 8px; border-radius: 6px">baslat.bat</span> dosyasına çift tıkla → ekran tarayıcıda açılır → 30 sn bekle → bir senaryo seç</div>
+    <div style="font-size: 16px; line-height: 1.45; color: #475569">Kod: <span style="font-family: 'JetBrains Mono', monospace; color: #334155">github.com/Proaiml/high-volume-log-inference</span> (özel repo, erişim izni gerekir)</div>
   </footer>
 </div>
 </body>
