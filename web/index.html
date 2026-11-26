@@ -19,21 +19,6 @@
     </div>
   </header>
 
-  <details class="intro" id="intro">
-    <summary>Bu ekran ne anlatıyor? <span class="muted">(1 dakikalık açıklama)</span></summary>
-    <ol>
-      <li><b>Sorun:</b> Saniyede binlerce log geliyor; bir LLM bunların hepsini okuyamaz.</li>
-      <li><b>Log türü (şablon):</b> Sistem birbirine benzeyen satırları tek bir türde toplar.
-        <code>User 123 logged in</code> ile <code>User 456 logged in</code> aynı türdür: <code>User &lt;*&gt; logged in</code>.
-        Değişen kısımlar (kimlik, sayı, IP) <code>&lt;*&gt;</code> ile gösterilir. Böylece yüz binlerce satır birkaç düzine türe iner.</li>
-      <li><b>Pencere:</b> Zaman 5-20 saniyelik dilimlere bölünür. Her pencerede her log türüne 0-100 arası bir
-        <b>öncelik puanı</b> verilir: yeni mi, normalden farklı mı, hata mı, geçmişte işe yaradı mı?</li>
-      <li><b>LLM:</b> Puanı yüksek türler, sabit bir token bütçesine sığdığı kadar LLM'e özet olarak gider. LLM "olay var mı?" diye karar verir.</li>
-      <li><b>Kapalı döngü:</b> Olay doğru çıkarsa o log türlerinin puanı ileride yükselir, yanlış alarmsa düşer.
-        Kaçırılan olay bildirilirse sistem daha dikkatli olur. Simülatörde bu geri bildirim otomatik verilir.</li>
-      <li><b>Dikkat seviyesi:</b> Bir şey ters gidince sistem pencereleri kısaltır ve LLM'e daha çok bilgi gönderir; ortalık sakinleşince yavaşça normale döner.</li>
-    </ol>
-  </details>
 
   <div id="banners" class="banners" aria-live="polite"></div>
 

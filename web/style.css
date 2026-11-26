@@ -210,16 +210,6 @@ pre.prompt {
 .wrow .wval { text-align: right; font-variant-numeric: tabular-nums; font-size: 13px; }
 .weights-foot { color: var(--muted); font-size: 12px; margin-top: 8px; }
 
-/* ------------------------------------------------------------------ giriş açıklaması */
-.intro {
-  margin: 12px 24px 0; padding: 10px 14px; background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--radius);
-}
-.intro summary { cursor: pointer; font-weight: 600; }
-.intro ol { margin: 8px 0 2px; padding-left: 20px; color: var(--text-2); }
-.intro li { margin: 4px 0; }
-.intro li b { color: var(--text); }
-
 /* ------------------------------------------------------------------ pencere geçmişi */
 .card.full { margin: 0 24px 32px; }
 .win-layout { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 16px; align-items: start; }

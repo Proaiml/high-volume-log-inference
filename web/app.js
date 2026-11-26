@@ -607,8 +607,6 @@ document.addEventListener("click", async (ev) => {
 });
 
 $("#only-called").addEventListener("change", renderWindowList);
-$("#intro").addEventListener("toggle", (ev) => localStorage.setItem("introKapali", ev.target.open ? "" : "1"));
-if (!localStorage.getItem("introKapali")) $("#intro").open = true;
 
 $("#sim-toggle").addEventListener("click", () =>
   api("/api/sim", { calisiyor: !(state && state.simulator.calisiyor) }).catch((e) => alert(e.message)));
